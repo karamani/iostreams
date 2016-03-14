@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ReadStdIn(process func(row []byte) error) error {
+func ReadStdin(process func(row []byte) error) error {
 
 	var input []byte = nil
 
