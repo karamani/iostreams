@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ReadStdin(process func(row []byte) error) error {
+func ProcessStdin(process func(row []byte) error) error {
 
 	var input []byte = nil
 
@@ -36,4 +36,15 @@ func ReadStdin(process func(row []byte) error) error {
 	}
 
 	return nil
+}
+
+func ChanStdin(line chan []byte) error {
+
+	process := func(row []byte) error {
+		line <- row
+		return nil
+	}
+
+	err := ProcessStdin(process)
+	return err
 }
