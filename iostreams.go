@@ -9,16 +9,32 @@ import (
 
 var ThroughMode bool = false
 
+func stdinReady() (bool, error) {
+
+	stat, err := os.Stdin.Stat()
+	if err != nil {
+		return false, err
+	}
+
+	ready := (stat.Mode() & os.ModeCharDevice) == 0
+	return ready, nil
+}
+
+func StdinReady() bool {
+	ready, err := stdinReady()
+	return err != nil && ready
+}
+
 func ProcessStdin(process func(row []byte) error) error {
 
 	var input []byte = nil
 
-	stat, err := os.Stdin.Stat()
+	stdinReady, err := stdinReady()
 	if err != nil {
 		return err
 	}
 
-	if (stat.Mode() & os.ModeCharDevice) == 0 {
+	if stdinReady {
 		reader := bufio.NewReader(os.Stdin)
 		for {
 			bytes, hasMoreInLine, err := reader.ReadLine()
