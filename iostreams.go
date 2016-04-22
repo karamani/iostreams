@@ -2,12 +2,9 @@ package iostreams
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"os"
 )
-
-var ThroughMode bool = false
 
 func stdinReady() (bool, error) {
 
@@ -48,9 +45,6 @@ func ProcessStdin(process func(row []byte) error) error {
 			if !hasMoreInLine {
 				if err := process(input); err != nil {
 					return err
-				}
-				if ThroughMode {
-					fmt.Println(string(input))
 				}
 				input = nil
 			}
