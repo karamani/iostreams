@@ -19,7 +19,7 @@ func stdinReady() (bool, error) {
 
 func StdinReady() bool {
 	ready, err := stdinReady()
-	return err != nil && ready
+	return err == nil && ready
 }
 
 func ProcessStdin(process func(row []byte) error) error {
