@@ -8,7 +8,7 @@ import (
 
 type StdinProcessor struct{}
 
-func newStdinProcessor() *StdinProcessor {
+func NewStdinProcessor() *StdinProcessor {
 	return &StdinProcessor{}
 }
 
