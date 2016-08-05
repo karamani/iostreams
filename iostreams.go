@@ -6,6 +6,20 @@ import (
 	"os"
 )
 
+type StdinProcessor struct{}
+
+func newStdinProcessor() *StdinProcessor {
+	return &StdinProcessor{}
+}
+
+func (*StdinProcessor) Ready() bool {
+	return StdinReady()
+}
+
+func (*StdinProcessor) Process(pfunc func(row []byte) error) error {
+	return ProcessStdin(pfunc)
+}
+
 func stdinReady() (bool, error) {
 
 	stat, err := os.Stdin.Stat()
